@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm start` - Run dev server (port 3000)
-- `npm run build` - Production build to `build/`
-- `npm test` - Run tests (Jest, interactive watch mode)
-- `npm test -- --watchAll=false` - Run tests once (CI mode)
-- `npm test -- --testPathPattern=<pattern>` - Run a single test file
+- `npm run dev` - Run Vite dev server (port 5173)
+- `npm run build` - Type-check with `tsc` then production build to `build/`
+- `npm run preview` - Preview production build locally
+- `npm test` - Run tests once (Vitest)
+- `npm run test:watch` - Run tests in watch mode
 
 ## Architecture
 
-This is a Create React App (CRA) project using React 18, TypeScript, and Tailwind CSS. It's a marketing/landing page site for ILLI Wallet, a cold storage crypto wallet product.
+Vite + React 18 + TypeScript + Tailwind CSS project. Marketing/landing page site for ILLI Wallet, a cold storage crypto wallet product sold on Etsy.
 
 ### Routing
 
@@ -29,9 +29,8 @@ Each page lives in `src/pages/<Name>/` with a barrel `index.ts` re-export. Pages
 
 ### Styling
 
-- Tailwind CSS v3 configured in `tailwind.config.js` with custom colors (`orange`, `gray-dark`, `gray`, `gray-light`), Montserrat font family, and container max-width of 900px
-- `src/index.css` imports Tailwind directives
-- `src/assets/bootstrap.min.css` is present but only partially used
+- Tailwind CSS v3 configured in `tailwind.config.js` with custom colors (`orange`, `gold`, `surface`, etc.), Montserrat font, custom animations, and container max-width of 1024px
+- `src/index.css` contains Tailwind directives plus custom CSS classes for the design system (`.btn-gold`, `.glass-card`, `.hero-bg`, `.text-gradient-gold`, etc.)
 - TypeScript strict mode is enabled
 
 ### External API
