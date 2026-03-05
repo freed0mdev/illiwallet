@@ -2,16 +2,201 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Gold gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #F5D68A 0%, #F09819 50%, #D4A844 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle gold border glow */
+.border-glow {
+  border: 1px solid rgba(240, 152, 25, 0.15);
+  box-shadow: 0 0 30px rgba(240, 152, 25, 0.05), inset 0 0 30px rgba(240, 152, 25, 0.02);
+}
+
+/* Hero animated background */
+.hero-bg {
+  background: #000;
+  overflow: hidden;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+}
+
+.hero-orb-1 {
+  width: 600px;
+  height: 600px;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(240, 152, 25, 0.15) 0%, transparent 70%);
+  animation: orbDrift1 20s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -10%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(212, 168, 68, 0.12) 0%, transparent 70%);
+  animation: orbDrift2 25s ease-in-out infinite;
+}
+
+.hero-orb-3 {
+  width: 400px;
+  height: 400px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(245, 214, 138, 0.08) 0%, transparent 70%);
+  animation: orbDrift3 18s ease-in-out infinite;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+@keyframes orbDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15%, 20%) scale(1.1); }
+  66% { transform: translate(5%, -10%) scale(0.95); }
+}
+
+@keyframes orbDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20%, -15%) scale(1.05); }
+  66% { transform: translate(-5%, 10%) scale(1.1); }
+}
+
+@keyframes orbDrift3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-40%, -60%) scale(1.2); opacity: 1; }
+}
+
+/* Radial ambient glow */
+.ambient-glow {
+  background: radial-gradient(ellipse at center, rgba(240, 152, 25, 0.08) 0%, transparent 70%);
+}
+
+/* Section divider */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(240, 152, 25, 0.3) 50%, transparent 100%);
+}
+
+/* Feature card glass */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(240, 152, 25, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* CTA button */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, #F09819 0%, #D4A844 100%);
+  color: #000;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(240, 152, 25, 0.25);
+}
+
+.btn-gold:hover {
+  box-shadow: 0 6px 30px rgba(240, 152, 25, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Outlined button */
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgba(240, 152, 25, 0.4);
+  color: #F09819;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  border-color: #F09819;
+  background: rgba(240, 152, 25, 0.08);
+}
+
+/* Instruction step number */
+.step-number {
+  background: linear-gradient(135deg, rgba(240, 152, 25, 0.15) 0%, rgba(240, 152, 25, 0.05) 100%);
+  border: 1px solid rgba(240, 152, 25, 0.2);
+  color: #F09819;
+}
+
+/* Balance checker input */
+.input-dark {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: rgba(240, 152, 25, 0.4);
+  box-shadow: 0 0 0 3px rgba(240, 152, 25, 0.1);
+}
+
+.input-dark::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
