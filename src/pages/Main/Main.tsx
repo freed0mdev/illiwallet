@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 import logo from "../../assets/logo.svg";
 import coinImage from "../../assets/coin.png";
 import coinDisassembled from "../../assets/coin_disassembled.png";
@@ -31,14 +32,9 @@ function MainPage() {
             Handcrafted cold storage crypto wallet. A collectible coin that safeguards your digital assets offline.
           </p>
           <div className="animate-fade-up-delay-2 mt-10 flex flex-col sm:flex-row gap-4 justify-center opacity-0">
-            <a
-              href={STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold px-10 py-4 rounded-full text-sm "
-            >
-              Shop on Etsy
-            </a>
+            <span className="btn-gold px-10 py-4 rounded-full text-sm opacity-50 cursor-not-allowed">
+              Sold Out
+            </span>
             <a
               href="#features"
               className="btn-outline-gold px-10 py-4 rounded-full text-sm "
@@ -80,14 +76,9 @@ function MainPage() {
                 designed to protect your cryptocurrency offline, forever safe from hackers and hardware failures.
               </p>
               <div className="mt-10 flex gap-4">
-                <a
-                  href={STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-gold px-8 py-3 rounded-full text-xs "
-                >
-                  Buy Now &rarr;
-                </a>
+                <span className="btn-gold px-8 py-3 rounded-full text-xs opacity-50 cursor-not-allowed">
+                  Sold Out
+                </span>
                 <Link
                   to="/instructions"
                   className="btn-outline-gold px-8 py-3 rounded-full text-xs "
@@ -194,6 +185,11 @@ function MainPage() {
 
       <div className="divider-gold mx-auto max-w-xl" />
 
+      {/* ─── Contact Section ─── */}
+      <ContactSection />
+
+      <div className="divider-gold mx-auto max-w-xl" />
+
       {/* ─── CTA Section ─── */}
       <section className="relative py-32 overflow-hidden">
         <div className="ambient-glow absolute inset-0 pointer-events-none" />
@@ -208,14 +204,9 @@ function MainPage() {
             order yours today from our Etsy shop.
           </p>
           <div className="mt-10">
-            <a
-              href={STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold px-12 py-4 rounded-full text-sm "
-            >
-              Visit Our Etsy Shop &rarr;
-            </a>
+            <span className="btn-gold px-12 py-4 rounded-full text-sm opacity-50 cursor-not-allowed">
+              Sold Out
+            </span>
           </div>
         </div>
       </section>
@@ -229,8 +220,11 @@ function MainPage() {
               <Link to="/instructions" className="hover:text-orange transition-colors">
                 Instructions
               </Link>
-              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors">
-                Etsy Shop
+              <span className="opacity-40 cursor-not-allowed">
+                Etsy Shop (Sold Out)
+              </span>
+              <a href="#contact" className="hover:text-orange transition-colors">
+                Contact
               </a>
             </nav>
             <p className="text-sm text-gray-dark">
@@ -240,6 +234,111 @@ function MainPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+
+function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<FormStatus>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+
+    setStatus('sending');
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
+      setStatus('success');
+      formRef.current.reset();
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  return (
+    <section id="contact" className="relative py-32">
+      <div className="container mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <p className="text-orange text-xs tracking-ultra uppercase font-semibold mb-4">Get in Touch</p>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            Have a <span className="text-gradient-gold">Question?</span>
+          </h2>
+          <p className="mt-4 text-gray text-lg">
+            We&rsquo;d love to hear from you. Send us a message and we&rsquo;ll get back to you as soon as possible.
+          </p>
+        </div>
+
+        <div className="max-w-xl mx-auto">
+          <form ref={formRef} onSubmit={handleSubmit} className="glass-card rounded-2xl p-8 space-y-6">
+            <div>
+              <label htmlFor="from_name" className="block text-sm font-medium text-gray mb-2">
+                Name
+              </label>
+              <input
+                id="from_name"
+                name="from_name"
+                type="text"
+                required
+                placeholder="Your name"
+                className="w-full bg-black/40 border border-surface-border rounded-xl px-4 py-3 text-white placeholder-gray-dark focus:outline-none focus:border-orange transition-colors"
+              />
+            </div>
+            <div>
+              <label htmlFor="reply_to" className="block text-sm font-medium text-gray mb-2">
+                Email
+              </label>
+              <input
+                id="reply_to"
+                name="reply_to"
+                type="email"
+                required
+                placeholder="your@email.com"
+                className="w-full bg-black/40 border border-surface-border rounded-xl px-4 py-3 text-white placeholder-gray-dark focus:outline-none focus:border-orange transition-colors"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={5}
+                placeholder="How can we help you?"
+                className="w-full bg-black/40 border border-surface-border rounded-xl px-4 py-3 text-white placeholder-gray-dark focus:outline-none focus:border-orange transition-colors resize-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="btn-gold w-full py-4 rounded-xl text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === 'sending' ? 'Sending…' : 'Send Message'}
+            </button>
+
+            {status === 'success' && (
+              <p className="text-center text-sm text-green-400">
+                Message sent! We&rsquo;ll get back to you soon.
+              </p>
+            )}
+            {status === 'error' && (
+              <p className="text-center text-sm text-red-400">
+                Something went wrong. Please try again or email us directly.
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </section>
   );
 }
 
