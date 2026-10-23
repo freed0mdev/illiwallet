@@ -1,202 +1,164 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+  logs: false;
+}
+
+/* Light theme: white canvas, soft grey bands, ink text, gold reserved for links. */
+@plugin "daisyui/theme" {
+  name: "illi";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f5f5f7;
+  --color-base-300: #e5e5ea;
+  --color-base-content: #1d1d1f;
+  --color-primary: #1d1d1f;
+  --color-primary-content: #ffffff;
+  --color-secondary: #9a7318;
+  --color-secondary-content: #ffffff;
+  --color-accent: #c9981f;
+  --color-accent-content: #1d1d1f;
+  --color-neutral: #1d1d1f;
+  --color-neutral-content: #f5f5f7;
+  --color-info: #0071e3;
+  --color-info-content: #ffffff;
+  --color-success: #248a3d;
+  --color-success-content: #ffffff;
+  --color-warning: #b25000;
+  --color-warning-content: #ffffff;
+  --color-error: #d70015;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 2rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.75rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px;
+
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Dark theme: used for the "Inside" section and the navigation bar only. */
+@plugin "daisyui/theme" {
+  name: "illi-dark";
+  default: false;
+  prefersdark: false;
+  color-scheme: dark;
+
+  --color-base-100: #000000;
+  --color-base-200: #161617;
+  --color-base-300: #2c2c2e;
+  --color-base-content: #f5f5f7;
+  --color-primary: #f5f5f7;
+  --color-primary-content: #1d1d1f;
+  --color-secondary: #e3b347;
+  --color-secondary-content: #1d1d1f;
+  --color-accent: #e3b347;
+  --color-accent-content: #1d1d1f;
+  --color-neutral: #f5f5f7;
+  --color-neutral-content: #1d1d1f;
+  --color-info: #2997ff;
+  --color-info-content: #000000;
+  --color-success: #30d158;
+  --color-success-content: #000000;
+  --color-warning: #ffd60a;
+  --color-warning-content: #000000;
+  --color-error: #ff453a;
+  --color-error-content: #000000;
+
+  --radius-selector: 2rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.75rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px;
+
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
+}
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv11", "ss01", "ss03";
+  text-rendering: optimizeLegibility;
 }
 
-/* Gold gradient text */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #F5D68A 0%, #F09819 50%, #D4A844 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Pill buttons across the site, as in Apple's product pages. */
+@utility btn {
+  @apply rounded-full font-medium tracking-[-0.01em];
 }
 
-/* Subtle gold border glow */
-.border-glow {
-  border: 1px solid rgba(240, 152, 25, 0.15);
-  box-shadow: 0 0 30px rgba(240, 152, 25, 0.05), inset 0 0 30px rgba(240, 152, 25, 0.02);
+/* 980px content column, Apple's product-page measure. */
+@utility wrap {
+  @apply mx-auto w-full max-w-[980px] px-6;
 }
 
-/* Hero animated background */
-.hero-bg {
-  background: #000;
-  overflow: hidden;
-}
-
-.hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  will-change: transform;
-}
-
-.hero-orb-1 {
-  width: 600px;
-  height: 600px;
-  top: -10%;
-  left: -10%;
-  background: radial-gradient(circle, rgba(240, 152, 25, 0.15) 0%, transparent 70%);
-  animation: orbDrift1 20s ease-in-out infinite;
-}
-
-.hero-orb-2 {
-  width: 500px;
-  height: 500px;
-  bottom: -10%;
-  right: -10%;
-  background: radial-gradient(circle, rgba(212, 168, 68, 0.12) 0%, transparent 70%);
-  animation: orbDrift2 25s ease-in-out infinite;
-}
-
-.hero-orb-3 {
-  width: 400px;
-  height: 400px;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(245, 214, 138, 0.08) 0%, transparent 70%);
-  animation: orbDrift3 18s ease-in-out infinite;
-}
-
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-}
-
-@keyframes orbDrift1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(15%, 20%) scale(1.1); }
-  66% { transform: translate(5%, -10%) scale(0.95); }
-}
-
-@keyframes orbDrift2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-20%, -15%) scale(1.05); }
-  66% { transform: translate(-5%, 10%) scale(1.1); }
-}
-
-@keyframes orbDrift3 {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-  50% { transform: translate(-40%, -60%) scale(1.2); opacity: 1; }
-}
-
-/* Radial ambient glow */
-.ambient-glow {
-  background: radial-gradient(ellipse at center, rgba(240, 152, 25, 0.08) 0%, transparent 70%);
-}
-
-/* Section divider */
-.divider-gold {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(240, 152, 25, 0.3) 50%, transparent 100%);
-}
-
-/* Feature card glass */
-.glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.4s ease;
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(240, 152, 25, 0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* CTA button */
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(135deg, #F09819 0%, #D4A844 100%);
-  color: #000;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(240, 152, 25, 0.25);
-}
-
-.btn-gold:hover {
-  box-shadow: 0 6px 30px rgba(240, 152, 25, 0.4);
-  transform: translateY(-2px);
-}
-
-/* Outlined button */
-.btn-outline-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 1px solid rgba(240, 152, 25, 0.4);
-  color: #F09819;
+/* Type scale: one family, three display sizes, one lede. */
+@utility display-xl {
+  font-size: clamp(2.75rem, 7.5vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
+  text-wrap: balance;
 }
 
-.btn-outline-gold:hover {
-  border-color: #F09819;
-  background: rgba(240, 152, 25, 0.08);
+@utility display-lg {
+  font-size: clamp(2.125rem, 5vw, 3.5rem);
+  line-height: 1.07;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
 }
 
-/* Instruction step number */
-.step-number {
-  background: linear-gradient(135deg, rgba(240, 152, 25, 0.15) 0%, rgba(240, 152, 25, 0.05) 100%);
-  border: 1px solid rgba(240, 152, 25, 0.2);
-  color: #F09819;
+@utility display-md {
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+  text-wrap: balance;
 }
 
-/* Balance checker input */
-.input-dark {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  transition: all 0.3s ease;
+@utility lede {
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+  font-weight: 400;
+  text-wrap: pretty;
 }
 
-.input-dark:focus {
-  outline: none;
-  border-color: rgba(240, 152, 25, 0.4);
-  box-shadow: 0 0 0 3px rgba(240, 152, 25, 0.1);
+/* Soft product shadow under the coin photography. */
+@utility product-shadow {
+  filter: drop-shadow(0 40px 60px rgb(0 0 0 / 0.18)) drop-shadow(0 8px 16px rgb(0 0 0 / 0.08));
 }
 
-.input-dark::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+@utility product-shadow-dark {
+  filter: drop-shadow(0 50px 80px rgb(227 179 71 / 0.18)) drop-shadow(0 10px 24px rgb(0 0 0 / 0.6));
 }

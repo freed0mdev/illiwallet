@@ -1,9 +1,7 @@
-import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router';
+import App from './App';
 import ErrorPage from './pages/Error';
-import InstructionsPage from './pages/Instructions';
-import MainPage from "./pages/Main";
-import App from "./App";
+import MainPage from './pages/Main';
 
 const router = createBrowserRouter([
   {
@@ -11,13 +9,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        index: true,
-        element: <MainPage />,
-      },
+      { index: true, element: <MainPage /> },
       {
         path: 'instructions',
-        element: <InstructionsPage />,
+        lazy: async () => ({ Component: (await import('./pages/Instructions')).default }),
       },
     ],
   },

@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider } from 'react-router';
+import '@fontsource-variable/inter';
 import './index.css';
-import {RouterProvider} from "react-router-dom";
 import router from './router';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+createRoot(document.getElementById('root') as HTMLElement).render(
+  <StrictMode>
     <RouterProvider router={router} />
+  </StrictMode>,
 );
