@@ -4,6 +4,7 @@ import { useReducedMotion } from 'motion/react';
 import * as m from 'motion/react-m';
 import coinImage from '../../assets/coin.webp';
 import coinDisassembled from '../../assets/coin_disassembled.webp';
+import BalanceChecker from '../../components/BalanceChecker';
 import Reveal from '../../components/Reveal';
 import Chevron from '../../components/Chevron';
 
@@ -16,6 +17,7 @@ function MainPage() {
       <Inside />
       <Design />
       <Steps />
+      <Balance />
       <Contact />
     </>
   );
@@ -242,6 +244,25 @@ function Steps() {
   );
 }
 
+/* ─── Balance: the one thing an owner comes back for. Same checker as the guide. ─── */
+
+function Balance() {
+  return (
+    <section id="balance" className="scroll-mt-12 bg-base-200 py-28 md:py-36">
+      <div className="wrap">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <h2 className="display-lg">Check a balance.</h2>
+          <p className="lede mt-5 text-base-content/70">
+            Scan the public QR code on the ring, paste the address here, and see what the coin
+            holds. The private key is never needed.
+          </p>
+        </Reveal>
+        <BalanceChecker />
+      </div>
+    </section>
+  );
+}
+
 /* ─── Contact ─── */
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error';
@@ -272,7 +293,7 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-12 bg-base-200 py-28 md:py-36">
+    <section id="contact" className="scroll-mt-12 bg-base-100 py-28 md:py-36">
       <div className="wrap">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="display-lg">Questions? Write to us.</h2>
@@ -285,7 +306,7 @@ function Contact() {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="card mx-auto mt-12 max-w-xl rounded-box bg-base-100"
+          className="card card-border mx-auto mt-12 max-w-xl rounded-box border-base-300 bg-base-100"
         >
           <div className="card-body gap-5 p-8 md:p-10">
             <fieldset className="fieldset">

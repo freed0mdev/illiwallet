@@ -5,6 +5,7 @@ const LINKS = [
   { label: 'Inside', to: '/#inside' },
   { label: 'Design', to: '/#design' },
   { label: 'How it works', to: '/instructions' },
+  { label: 'Check balance', to: '/#balance' },
   { label: 'Contact', to: '/#contact' },
 ];
 

@@ -10,6 +10,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm test` - Run tests once (Vitest)
 - `npm run test:watch` - Run tests in watch mode
 
+## Deployment
+
+Hosted on Render, built with `npm run build`. Vite 8 needs Node 22.12 or newer; the version is pinned in `.node-version` (read by Render) and in `engines` in `package.json`. Do not lower it.
+
 ## Architecture
 
 Vite 8 + React 19 + TypeScript + Tailwind CSS 4 + daisyUI 5 project. Marketing/landing page site for ILLI Wallet, a cold storage crypto wallet coin sold on Etsy (first edition currently sold out).
@@ -19,13 +23,13 @@ Vite 8 + React 19 + TypeScript + Tailwind CSS 4 + daisyUI 5 project. Marketing/l
 Uses `react-router` v8 (import from `react-router`, not `react-router-dom`) with `createBrowserRouter` in `src/router.tsx`. `App` is the layout shell: fixed `Nav`, `<Outlet />`, `Footer`, and `<ScrollRestoration />` (which also handles `/#section` hash links from other pages).
 
 Routes:
-- `/` - Landing page (`src/pages/Main/Main.tsx`): hero, "Inside" dark band, bento feature tiles, four-step teaser, EmailJS contact form
+- `/` - Landing page (`src/pages/Main/Main.tsx`): hero, "Inside" dark band, bento feature tiles, four-step teaser, Bitcoin balance checker, EmailJS contact form
 - `/instructions` - Step-by-step guide with Bitcoin balance checker (`src/pages/Instructions/Instructions.tsx`)
 - Error fallback (`src/pages/Error/Error.tsx`)
 
 ### Page structure
 
-Each page lives in `src/pages/<Name>/` with a barrel `index.ts`. Shared pieces live in `src/components/` (`Nav`, `Footer`, `Reveal`, `Chevron`).
+Each page lives in `src/pages/<Name>/` with a barrel `index.ts`. Shared pieces live in `src/components/` (`Nav`, `Footer`, `Reveal`, `Chevron`, `BalanceChecker`). `BalanceChecker` is used on both the landing page (`#balance`) and the instructions page.
 
 ### Styling
 
